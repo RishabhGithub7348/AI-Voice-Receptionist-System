@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable standalone output for Docker deployment
+  output: 'standalone',
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/, // Look for .svg files

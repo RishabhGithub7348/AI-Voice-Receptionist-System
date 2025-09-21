@@ -6,10 +6,13 @@ import path from "path";
 dotenv.config({ path: path.join(process.cwd(), "../.env.local") });
 
 export async function POST(request: Request) {
-  let playgroundState: PlaygroundState;
+  let requestData: PlaygroundState & {
+    customerPhone?: string;
+    customerName?: string;
+  };
 
   try {
-    playgroundState = await request.json();
+    requestData = await request.json();
   } catch (error) {
     return Response.json(
       { error: "Invalid JSON in request body" },
@@ -19,16 +22,12 @@ export async function POST(request: Request) {
 
   const {
     instructions,
-    geminiAPIKey,
     sessionConfig: { modalities, voice, temperature, maxOutputTokens },
-  } = playgroundState;
+    customerPhone,
+    customerName,
+  } = requestData;
 
-  if (!geminiAPIKey) {
-    return Response.json(
-      { error: "Gemini API key is required" },
-      { status: 400 }
-    );
-  }
+  // Gemini API key is now handled by the backend agent, not needed here
 
   const roomName = Math.random().toString(36).slice(7);
   const apiKey = process.env.LIVEKIT_API_KEY;
@@ -38,14 +37,16 @@ export async function POST(request: Request) {
   }
 
   const at = new AccessToken(apiKey, apiSecret, {
-    identity: "human",
+    identity: customerPhone || "human",
     metadata: JSON.stringify({
       instructions: instructions,
       modalities: modalities,
       voice: voice,
       temperature: temperature,
       max_output_tokens: maxOutputTokens,
-      gemini_api_key: geminiAPIKey,
+      customer_phone: customerPhone || "+1 (555) 123-4567",
+      customer_name: customerName || "Test Customer",
+      // Gemini API key is handled by backend agent
     }),
   });
   at.addGrant({

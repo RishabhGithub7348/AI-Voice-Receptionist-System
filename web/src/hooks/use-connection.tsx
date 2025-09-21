@@ -11,7 +11,10 @@ import { PlaygroundState } from "@/data/playground-state";
 import { usePlaygroundState } from "./use-playground-state";
 import { VoiceId } from "@/data/voices";
 
-export type ConnectFn = () => Promise<void>;
+export type ConnectFn = (customerInfo?: {
+  customerPhone: string;
+  customerName?: string;
+}) => Promise<void>;
 
 type TokenGeneratorData = {
   shouldConnect: boolean;
@@ -41,14 +44,23 @@ export const ConnectionProvider = ({
 
   const { pgState } = usePlaygroundState();
 
-  const connect = async () => {
+  const connect = async (customerInfo?: {
+    customerPhone: string;
+    customerName?: string;
+  }) => {
     // Remove Gemini API key check - now handled by backend
+    const requestBody = {
+      ...pgState,
+      customerPhone: customerInfo?.customerPhone,
+      customerName: customerInfo?.customerName,
+    };
+
     const response = await fetch("/api/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(pgState),
+      body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {

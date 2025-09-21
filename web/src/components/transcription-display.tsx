@@ -81,50 +81,33 @@ export function TranscriptionDisplay() {
     });
   }, [remoteParticipants]);
 
-  if (messages.length === 0) {
-    return (
-      <div className="h-[200px] p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border">
-        <div className="flex items-center justify-center h-full text-gray-500">
-          Conversation will appear here...
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="h-[200px] p-4 bg-white dark:bg-gray-800 rounded-lg border">
-      <div
-        ref={scrollRef}
-        className="h-full overflow-y-auto space-y-3 pr-2"
-        style={{ scrollBehavior: 'smooth' }}
-      >
-        {messages.map((message) => (
+    <div
+      ref={scrollRef}
+      className="h-full overflow-y-auto space-y-2"
+      style={{ scrollBehavior: 'smooth' }}
+    >
+      {messages.length > 0 ? (
+        messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${
-              message.speaker === "user" ? "justify-end" : "justify-start"
+            className={`text-xs ${
+              message.speaker === "user"
+                ? "text-blue-300"
+                : "text-gray-300"
             }`}
           >
-            <div
-              className={`max-w-[80%] p-3 rounded-lg ${
-                message.speaker === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-              }`}
-            >
-              <div className="text-sm font-medium mb-1">
-                {message.speaker === "user" ? "You" : "AI"}
-              </div>
-              <div className="text-sm">{message.text}</div>
-              <div className={`text-xs mt-1 ${
-                message.speaker === "user" ? "text-blue-100" : "text-gray-500"
-              }`}>
-                {message.timestamp.toLocaleTimeString()}
-              </div>
-            </div>
+            <span className="font-semibold">
+              {message.speaker === "user" ? "You: " : "AI: "}
+            </span>
+            <span className="opacity-90">{message.text}</span>
           </div>
-        ))}
-      </div>
+        ))
+      ) : (
+        <div className="text-xs text-gray-500 italic">
+          Speak to start...
+        </div>
+      )}
     </div>
   );
 }

@@ -1,67 +1,289 @@
-# Gemini Multimodal Live Playground
+# 🏢 Frontdesk AI - Intelligent Voice Receptionist System
 
-This project is an interactive playground that demonstrates the capabilities of Google's Gemini Multimodal Live API, allowing users to experiment with the API directly in their browser. It's built on top of LiveKit Agents.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue)](https://www.python.org/)
+[![LiveKit](https://img.shields.io/badge/LiveKit-Latest-green)](https://livekit.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
-![Gemini Multimodal Live playground preview](./web/public/playground-preview.gif)
+A sophisticated AI-powered voice receptionist system with human-in-the-loop supervision, designed for businesses to handle customer calls intelligently with seamless escalation to human supervisors when needed.
 
-## Repository Structure
+![Frontdesk AI Dashboard](./docs/dashboard-preview.png)
 
-### /agent
+## 🌟 Features
 
-This directory contains the agent implementation in build on the LiveKit [Python Agents framework](https://github.com/livekit/agents).
+### 🎯 Core Capabilities
+- **🤖 AI Voice Receptionist** - Natural conversation using Gemini 2.0 with real-time voice processing
+- **👥 Human-in-the-Loop** - Automatic escalation to human supervisors for complex queries
+- **📚 Dynamic Knowledge Base** - Self-learning system that improves from supervisor resolutions
+- **📞 Real-time Voice Calls** - WebRTC-based voice communication via LiveKit
+- **🎫 Smart Ticketing** - Automatic ticket creation for unanswered questions
+- **📊 Analytics Dashboard** - Track performance, response times, and system metrics
+- **🔄 Live Transcription** - Real-time speech-to-text for monitoring conversations
 
-### /web
+### 💼 Business Features
+- **Multi-category Knowledge Management** - Organize information by departments/categories
+- **Customer Session Tracking** - Maintain conversation history and customer profiles
+- **Priority-based Escalation** - Urgent issues get immediate supervisor attention
+- **Supervisor Dashboard** - Comprehensive interface for managing help requests
+- **Learning System** - AI learns from supervisor resolutions to handle similar queries
 
-This directory houses the web frontend, built with Next.js.
+## 🏗️ Architecture
 
-## Prerequisites
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              FRONTDESK AI SYSTEM                                │
+└─────────────────────────────────────────────────────────────────────────────────┘
 
-- Python 3.9 or higher
-- pip (Python package installer)
-- LiveKit Cloud or self-hosted LiveKit server
+    ┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
+    │                 │         │                 │         │                 │
+    │   Next.js Web   │◄───────►│  FastAPI        │◄───────►│   Gemini 2.0    │
+    │   Frontend      │         │  Backend        │         │   Flash API     │
+    │                 │         │                 │         │                 │
+    │ • Phone UI      │         │ • Knowledge API │         │ • Voice AI      │
+    │ • Dashboard     │         │ • Help Requests │         │ • Real-time     │
+    │ • Analytics     │         │ • Ticket System │         │ • Natural Lang  │
+    └─────────────────┘         └─────────────────┘         └─────────────────┘
+            │                           │
+            │                           ▼
+            │                  ┌─────────────────┐
+            │                  │                 │
+            │                  │   Supabase      │
+            │                  │   Database      │
+            │                  │                 │
+            │                  │ • Knowledge     │
+            │                  │ • Users         │
+            │                  │ • Sessions      │
+            │                  └─────────────────┘
+            │
+            ▼
+    ┌─────────────────┐         ┌─────────────────┐
+    │                 │         │                 │
+    │   LiveKit       │◄───────►│   AI Voice      │
+    │   Real-time     │         │   Agent         │
+    │   Audio Stream  │         │   (Python)      │
+    │                 │         │                 │
+    │ • WebRTC        │         │ • Speech-to-Text│
+    │ • Voice Calls   │         │ • AI Processing │
+    │ • Transcription │         │ • Escalation    │
+    └─────────────────┘         └─────────────────┘
+            │
+            ▼
+    ┌─────────────────┐
+    │                 │
+    │   Human         │
+    │   Supervisor    │
+    │   Interface     │
+    │                 │
+    │ • Live Monitor  │
+    │ • Intervention  │
+    │ • Resolution    │
+    └─────────────────┘
 
-## Getting Started
+Data Flow:
+1. Customer calls → LiveKit → AI Agent → Gemini 2.0
+2. AI responses → LiveKit → Customer
+3. Complex queries → FastAPI → Supervisor Dashboard
+4. Resolutions → Knowledge Base → Future AI learning
+```
 
-### Env Setup
+## 🚀 Quick Start
 
-1. Copy the sample environment file: `cp .env.sample .env.local`
-2. Open `.env.local` in a text editor and enter your LiveKit credentials
+### Prerequisites
+- Node.js 18+ and pnpm
+- Python 3.9+
+- Docker and Docker Compose (optional)
+- LiveKit Cloud account or self-hosted server
+- Google Cloud account (for Gemini API)
+- Supabase account or self-hosted instance
 
-### Agent Setup
+### Environment Setup
 
-1. Navigate to the `/agent` directory
-2. Create a virtual environment: `python -m venv .venv`
-3. Activate the virtual environment:
-   - On macOS and Linux: `source .venv/bin/activate`
-   - On Windows: `.venv\Scripts\activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Run the agent in development mode: `python main.py dev`
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/frontdesk-ai.git
+cd frontdesk-ai
+```
 
-### Web Frontend Setup
+2. **Configure environment variables**
 
-1. Navigate to the `/web` directory
-2. Install dependencies: `pnpm install`
-3. Run the development server: `pnpm dev`
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+Create `.env.local` in the root directory:
+```env
+# LiveKit Configuration
+LIVEKIT_API_KEY=your_livekit_api_key
+LIVEKIT_API_SECRET=your_livekit_api_secret
+LIVEKIT_URL=wss://your-livekit-url
 
-## Deployment
+# Google AI (Gemini)
+GOOGLE_API_KEY=your_gemini_api_key
 
-The agent can be deployed in a variety of ways: [Deployment & Scaling Guide](https://docs.livekit.io/agents/deployment/)
+# Supabase Configuration
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_KEY=your_supabase_service_key
 
-The web frontend can be deployed using your preferred Next.js hosting solution, such as [Vercel](https://vercel.com/).
+# Backend API
+FASTAPI_BASE_URL=http://localhost:8001
+```
 
-## Troubleshooting
+### 🐳 Docker Deployment (Recommended)
 
-Ensure the following:
+```bash
+# Build and start all services
+docker-compose up -d
 
-- Both web and agent are running
-- Environment variables are set up correctly
-- Correct versions of Python and pnpm are installed
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8001
+# AI Agent: Connects automatically
+```
 
-## Additional Resources
+### Manual Installation
 
-For more information or support, please refer to [LiveKit docs](https://docs.livekit.io/).
+#### Frontend (Next.js)
+```bash
+cd web
+pnpm install
+pnpm run dev
+```
 
-## License
+#### AI Agent (Python)
+```bash
+cd agent
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python main.py dev
+```
 
-Apache 2.0
+#### Backend API (FastAPI)
+```bash
+cd agent
+uvicorn app.main:app --reload --port 8001
+```
+
+## 📁 Project Structure
+
+```
+frontdesk-ai/
+├── web/                      # Frontend application
+│   ├── src/
+│   │   ├── app/             # Next.js app directory
+│   │   ├── components/      # React components
+│   │   │   ├── phone-chat.tsx       # Phone interface
+│   │   │   ├── supervisor-dashboard.tsx
+│   │   │   └── knowledge-base-table.tsx
+│   │   ├── hooks/           # Custom React hooks
+│   │   ├── lib/             # Utilities
+│   │   └── providers/       # Context providers
+│   ├── public/              # Static assets
+│   └── package.json
+│
+├── agent/                    # AI Voice Agent
+│   ├── app/                 # FastAPI application
+│   │   ├── api/            # API endpoints
+│   │   ├── models/         # Data models
+│   │   ├── services/       # Business logic
+│   │   └── repositories/   # Database operations
+│   ├── main.py             # Agent entry point
+│   ├── backend_client.py   # Backend communication
+│   └── requirements.txt
+│
+├── docker/                   # Docker configurations
+│   ├── frontend.Dockerfile
+│   ├── agent.Dockerfile
+│   └── backend.Dockerfile
+│
+├── docs/                     # Documentation
+├── scripts/                  # Utility scripts
+├── docker-compose.yml       # Docker compose configuration
+└── README.md
+```
+
+## 🔧 Configuration
+
+### Knowledge Base Setup
+
+1. **Initialize the database**
+```bash
+# Run the Supabase migrations
+psql -U postgres -d your_database -f supabase-schema.sql
+```
+
+2. **Add initial knowledge entries**
+```sql
+INSERT INTO knowledge_base (question, answer, category, source) VALUES
+('What are your business hours?', 'We are open Monday-Friday 9 AM to 7 PM, Saturday 9 AM to 5 PM, closed Sundays.', 'hours', 'manual'),
+('What services do you offer?', 'We offer haircuts, coloring, styling, manicures, pedicures, and facial treatments.', 'services', 'manual');
+```
+
+### Voice Configuration
+
+Configure voice settings in the UI or via environment:
+- **Voice Model**: Gemini 2.0 Flash
+- **Voice Personas**: Puck, Charon, Kore, Fenrir
+- **Temperature**: 0.6-1.2 (conversation style)
+- **Response Tokens**: Configurable limit
+
+## 🎯 Usage
+
+### For Businesses
+
+1. **Setup Knowledge Base**: Add your business information, FAQs, and policies
+2. **Configure AI Personality**: Choose voice and conversation style
+3. **Train Supervisors**: Show them how to resolve tickets
+4. **Monitor & Improve**: Review analytics and update knowledge base
+
+### For Developers
+
+1. **Extend Knowledge Categories**: Add custom categories in `models/schemas.py`
+2. **Customize UI**: Modify components in `web/src/components/`
+3. **Add Integrations**: Connect to CRM, ticketing systems, etc.
+4. **Implement Webhooks**: Add notifications for escalations
+
+## 📊 API Documentation
+
+### Core Endpoints
+
+#### Knowledge Base
+```http
+GET    /api/knowledge-base              # List all entries
+POST   /api/knowledge-base              # Add new entry
+PUT    /api/knowledge-base/:id          # Update entry
+DELETE /api/knowledge-base/:id          # Remove entry
+```
+
+#### Help Requests
+```http
+GET    /api/help-requests               # List pending tickets
+POST   /api/help-requests/:id/resolve   # Resolve ticket
+GET    /api/help-requests/stats         # Get statistics
+```
+
+#### AI Interaction
+```http
+POST   /ai/query                        # Process customer query
+POST   /ai/create-ticket                # Create help ticket
+GET    /ai/context                      # Get business context
+POST   /ai/learn/:id                    # Learn from resolution
+```
+
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [LiveKit](https://livekit.io/) - Real-time communication infrastructure
+- [Google Gemini](https://ai.google.dev/) - AI language model
+- [Supabase](https://supabase.io/) - Backend as a Service
+- [Next.js](https://nextjs.org/) - React framework
+- [FastAPI](https://fastapi.tiangolo.com/) - Python web framework
+
+## 📞 Support
+
+- **Documentation**: [docs.frontdesk-ai.com](https://docs.frontdesk-ai.com)
+- **Discord**: [Join our community](https://discord.gg/frontdesk-ai)
+- **Email**: support@frontdesk-ai.com
+- **Issues**: [GitHub Issues](https://github.com/yourusername/frontdesk-ai/issues)

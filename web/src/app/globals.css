@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  @apply text-neutral-50 bg-neutral-900;
+  @apply text-gray-900 bg-white;
   --lk-va-bar-width: 2px;
   --lk-va-bar-gap: 4px;
   --lk-fg: rgb(115 115 115 / var(--tw-text-opacity));
