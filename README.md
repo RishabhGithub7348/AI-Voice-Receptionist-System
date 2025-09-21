@@ -1,4 +1,4 @@
-# 🏢 Frontdesk AI - Intelligent Voice Receptionist System
+# 🎙️ Intelligent Voice Receptionist System with Supervisor Self Learning
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
@@ -8,7 +8,7 @@
 
 A sophisticated AI-powered voice receptionist system with human-in-the-loop supervision, designed for businesses to handle customer calls intelligently with seamless escalation to human supervisors when needed.
 
-![Frontdesk AI Dashboard](./docs/dashboard-preview.png)
+![Voice Receptionist Dashboard](./docs/dashboard-preview.png)
 
 ## 🌟 Features
 
@@ -32,7 +32,7 @@ A sophisticated AI-powered voice receptionist system with human-in-the-loop supe
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│                              FRONTDESK AI SYSTEM                                │
+│                    INTELLIGENT VOICE RECEPTIONIST SYSTEM                        │
 └─────────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────┐                    ┌──────────────────────────────────────────┐
@@ -89,8 +89,8 @@ Data Flow:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/frontdesk-ai.git
-cd frontdesk-ai
+git clone https://github.com/yourusername/voice-receptionist-ai.git
+cd voice-receptionist-ai
 ```
 
 2. **Configure environment variables**
@@ -153,7 +153,7 @@ uvicorn app.main:app --reload --port 8001
 ## 📁 Project Structure
 
 ```
-frontdesk-ai/
+voice-receptionist-ai/
 ├── web/                      # Frontend application
 │   ├── src/
 │   │   ├── app/             # Next.js app directory
@@ -271,7 +271,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Documentation**: [docs.frontdesk-ai.com](https://docs.frontdesk-ai.com)
-- **Discord**: [Join our community](https://discord.gg/frontdesk-ai)
-- **Email**: support@frontdesk-ai.com
-- **Issues**: [GitHub Issues](https://github.com/yourusername/frontdesk-ai/issues)
+- **Documentation**: [docs.voice-receptionist-ai.com](https://docs.voice-receptionist-ai.com)
+- **Discord**: [Join our community](https://discord.gg/voice-receptionist-ai)
+- **Email**: support@voice-receptionist-ai.com
+- **Issues**: [GitHub Issues](https://github.com/yourusername/voice-receptionist-ai/issues)
