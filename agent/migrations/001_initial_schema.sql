@@ -1,4 +1,5 @@
--- Frontdesk Human-in-the-Loop AI Supervisor Database Schema
+-- Voice Receptionist AI System Database Schema
+-- Migration 001: Initial database schema setup
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -75,15 +76,6 @@ CREATE INDEX idx_help_requests_status ON help_requests(status);
 CREATE INDEX idx_help_requests_timeout ON help_requests(timeout_at);
 CREATE INDEX idx_help_requests_created ON help_requests(created_at DESC);
 CREATE INDEX idx_knowledge_base_question ON knowledge_base USING gin(to_tsvector('english', question));
-
--- Sample salon business data
-INSERT INTO knowledge_base (question, answer, category, source) VALUES
-('What are your business hours?', 'We are open Monday through Friday 9 AM to 7 PM, Saturday 9 AM to 5 PM, and closed on Sundays.', 'hours', 'manual'),
-('What services do you offer?', 'We offer haircuts, hair coloring, highlights, blowouts, hair styling, manicures, pedicures, facials, and eyebrow services.', 'services', 'manual'),
-('How much does a haircut cost?', 'Basic haircuts start at $45. Cut and style packages start at $65. Prices may vary based on hair length and complexity.', 'pricing', 'manual'),
-('Do you accept walk-ins?', 'We prefer appointments but accept walk-ins when possible. Call ahead to check availability.', 'appointments', 'manual'),
-('What is your cancellation policy?', 'Please give us at least 24 hours notice for cancellations. Same-day cancellations may be subject to a fee.', 'policies', 'manual'),
-('Do you offer gift certificates?', 'Yes, we offer gift certificates for any dollar amount or specific services. They can be purchased in-store or over the phone.', 'gift_certificates', 'manual');
 
 -- Functions for automatic timestamp updates
 CREATE OR REPLACE FUNCTION update_updated_at_column()
