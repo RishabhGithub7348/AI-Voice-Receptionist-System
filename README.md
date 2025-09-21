@@ -102,16 +102,8 @@ LIVEKIT_API_KEY=your_livekit_api_key
 LIVEKIT_API_SECRET=your_livekit_api_secret
 LIVEKIT_URL=wss://your-livekit-url
 
-# Google AI (Gemini)
-GOOGLE_API_KEY=your_gemini_api_key
-
-# Supabase Configuration
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_KEY=your_supabase_service_key
-
 # Backend API
-FASTAPI_BASE_URL=http://localhost:8001
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8001
 ```
 
 ### 🐳 Docker Deployment (Recommended)
